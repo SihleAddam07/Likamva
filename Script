@@ -1,0 +1,79 @@
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Initialize EmailJS with your User ID
+
+    try {
+
+        emailjs.init("age87tMWFLFMgADR1");
+
+    } catch (error) {
+
+        console.error("Failed to initialize EmailJS:", error);
+
+        return;
+
+    }
+
+
+
+    document.getElementById("valentineForm").addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+
+
+        // Get the selected answer
+
+        let selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+        if (!selectedAnswer) {
+
+            alert("Please select Yes or No.");
+
+            return;
+
+        }
+
+
+
+        let response = selectedAnswer.value;
+
+
+
+        // Parameters for EmailJS
+
+        let params = {
+
+            to_email: "sihleaddam07@gmail.com",
+
+            from_name: "Likamva",
+
+            message: `Likamva's response: ${response}`
+
+        };
+
+
+
+        // Send email via EmailJS
+
+        emailjs.send("service_8swkxur", "template_29q8esn", params)
+
+            .then(function (response) {
+
+                document.getElementById("responseMessage").innerText = "Response sent! Thank you, Chloë!";
+
+                console.log("Email sent successfully:", response);
+
+            })
+
+            .catch(function (error) {
+
+                document.getElementById("responseMessage").innerText = "Oops! Something went wrong.";
+
+                console.error("EmailJS Error:", error);
+
+            });
+
+    });
+
+});
